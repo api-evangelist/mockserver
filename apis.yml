@@ -4,8 +4,7 @@ url: >-
 apis:
   - aid: mockserver:mockserver
     name: MockServer
-    tags:
-      - API
+    tags: []
     humanURL: https://www.mock-server.com/
     properties:
       - url: https://www.mock-server.com/
@@ -16,8 +15,8 @@ apis:
       allowing any ...
 name: MockServer
 tags:
-  - Mocking
   - Mock Server
+  - Mocking
   - Platform
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
