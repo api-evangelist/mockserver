@@ -43,9 +43,9 @@ apis:
     properties:
       - type: Documentation
         url: https://www.mock-server.com/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://www.mock-server.com/mock_server/getting_started.html
-      - type: GitHub Repository
+      - type: GitHubRepository
         url: https://github.com/mock-server/mockserver
       - type: OpenAPI
         url: >-
@@ -55,9 +55,9 @@ common:
     url: https://www.mock-server.com/
   - type: Documentation
     url: https://www.mock-server.com/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/mock-server
-  - type: Getting Started
+  - type: GettingStarted
     url: https://www.mock-server.com/mock_server/getting_started.html
   - type: Issues
     url: https://github.com/mock-server/mockserver/issues
