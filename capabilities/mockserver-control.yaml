@@ -1,0 +1,277 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: MockServer API — control
+  description: 'MockServer API — control. 6 operations. Lead operation: bind additional listening ports. Self-contained Naftiko
+    capability covering one Mockserver business surface.'
+  tags:
+  - Mockserver
+  - control
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MOCKSERVER_API_KEY: MOCKSERVER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: mockserver-control
+    baseUri: http://localhost:1080
+    description: MockServer API — control business capability. Self-contained, no shared references.
+    resources:
+    - name: mockserver-bind
+      path: /mockserver/bind
+      operations:
+      - name: put
+        method: PUT
+        description: bind additional listening ports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: mockserver-clear
+      path: /mockserver/clear
+      operations:
+      - name: put
+        method: PUT
+        description: clears expectations and recorded requests that match the request matcher
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: specifies the type of information to clear, default if not specified is "all", supported values are
+            "all", "log", "expectations"
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: mockserver-reset
+      path: /mockserver/reset
+      operations:
+      - name: put
+        method: PUT
+        description: clears all expectations and recorded requests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: mockserver-retrieve
+      path: /mockserver/retrieve
+      operations:
+      - name: put
+        method: PUT
+        description: retrieve recorded requests, active expectations, recorded expectations or log messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+          description: changes response format, default if not specified is "json", supported values are "java", "json", "log_entries"
+        - name: type
+          in: query
+          type: string
+          description: specifies the type of object that is retrieve, default if not specified is "requests", supported values
+            are "logs", "requests", "recorded_expectations", "active
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: mockserver-status
+      path: /mockserver/status
+      operations:
+      - name: put
+        method: PUT
+        description: return listening ports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: mockserver-stop
+      path: /mockserver/stop
+      operations:
+      - name: put
+        method: PUT
+        description: stop running process
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: mockserver-control-rest
+    port: 8080
+    description: REST adapter for MockServer API — control. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/mockserver/bind
+      name: mockserver-bind
+      description: REST surface for mockserver-bind.
+      operations:
+      - method: PUT
+        name: put
+        description: bind additional listening ports
+        call: mockserver-control.put
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mockserver/clear
+      name: mockserver-clear
+      description: REST surface for mockserver-clear.
+      operations:
+      - method: PUT
+        name: put
+        description: clears expectations and recorded requests that match the request matcher
+        call: mockserver-control.put
+        with:
+          type: rest.type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mockserver/reset
+      name: mockserver-reset
+      description: REST surface for mockserver-reset.
+      operations:
+      - method: PUT
+        name: put
+        description: clears all expectations and recorded requests
+        call: mockserver-control.put
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mockserver/retrieve
+      name: mockserver-retrieve
+      description: REST surface for mockserver-retrieve.
+      operations:
+      - method: PUT
+        name: put
+        description: retrieve recorded requests, active expectations, recorded expectations or log messages
+        call: mockserver-control.put
+        with:
+          format: rest.format
+          type: rest.type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mockserver/status
+      name: mockserver-status
+      description: REST surface for mockserver-status.
+      operations:
+      - method: PUT
+        name: put
+        description: return listening ports
+        call: mockserver-control.put
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mockserver/stop
+      name: mockserver-stop
+      description: REST surface for mockserver-stop.
+      operations:
+      - method: PUT
+        name: put
+        description: stop running process
+        call: mockserver-control.put
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: mockserver-control-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for MockServer API — control. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: bind-additional-listening-ports
+      description: bind additional listening ports
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-control.put
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: clears-expectations-and-recorded-requests
+      description: clears expectations and recorded requests that match the request matcher
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-control.put
+      with:
+        type: tools.type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: clears-all-expectations-and-recorded
+      description: clears all expectations and recorded requests
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-control.put
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-recorded-requests-active-expectations
+      description: retrieve recorded requests, active expectations, recorded expectations or log messages
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-control.put
+      with:
+        format: tools.format
+        type: tools.type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: return-listening-ports
+      description: return listening ports
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-control.put
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: stop-running-process
+      description: stop running process
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-control.put
+      outputParameters:
+      - type: object
+        mapping: $.

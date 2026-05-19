@@ -1,0 +1,119 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: MockServer API — expectation
+  description: 'MockServer API — expectation. 2 operations. Lead operation: create expectation. Self-contained Naftiko capability
+    covering one Mockserver business surface.'
+  tags:
+  - Mockserver
+  - expectation
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MOCKSERVER_API_KEY: MOCKSERVER_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: mockserver-expectation
+    baseUri: http://localhost:1080
+    description: MockServer API — expectation business capability. Self-contained, no shared references.
+    resources:
+    - name: mockserver-expectation
+      path: /mockserver/expectation
+      operations:
+      - name: put
+        method: PUT
+        description: create expectation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: mockserver-openapi
+      path: /mockserver/openapi
+      operations:
+      - name: put
+        method: PUT
+        description: create expectations from OpenAPI or Swagger
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: mockserver-expectation-rest
+    port: 8080
+    description: REST adapter for MockServer API — expectation. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/mockserver/expectation
+      name: mockserver-expectation
+      description: REST surface for mockserver-expectation.
+      operations:
+      - method: PUT
+        name: put
+        description: create expectation
+        call: mockserver-expectation.put
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mockserver/openapi
+      name: mockserver-openapi
+      description: REST surface for mockserver-openapi.
+      operations:
+      - method: PUT
+        name: put
+        description: create expectations from OpenAPI or Swagger
+        call: mockserver-expectation.put
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: mockserver-expectation-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for MockServer API — expectation. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-expectation
+      description: create expectation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-expectation.put
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-expectations-openapi-swagger
+      description: create expectations from OpenAPI or Swagger
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: mockserver-expectation.put
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
