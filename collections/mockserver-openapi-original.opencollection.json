@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MockServer API",
+    "version": "5.15.x"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "expectation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "create expectation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/expectation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "create expectation"
+        },
+        {
+          "info": {
+            "name": "create expectations from OpenAPI or Swagger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/openapi",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "create expectations from OpenAPI or Swagger"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "clears expectations and recorded requests that match the request matcher",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/clear",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "specifies the type of information to clear, default if not specified is \"all\", supported values are \"all\", \"log\", \"expectations\""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "clears expectations and recorded requests that match the request matcher"
+        },
+        {
+          "info": {
+            "name": "clears all expectations and recorded requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/reset"
+          },
+          "docs": "clears all expectations and recorded requests"
+        },
+        {
+          "info": {
+            "name": "retrieve recorded requests, active expectations, recorded expectations or log messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/retrieve",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "changes response format, default if not specified is \"json\", supported values are \"java\", \"json\", \"log_entries\""
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "specifies the type of object that is retrieve, default if not specified is \"requests\", supported values are \"logs\", \"requests\", \"recorded_expectations\", \"active_expectations\""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "retrieve recorded requests, active expectations, recorded expectations or log messages"
+        },
+        {
+          "info": {
+            "name": "return listening ports",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/status"
+          },
+          "docs": "return listening ports"
+        },
+        {
+          "info": {
+            "name": "bind additional listening ports",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/bind",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "only supported on Netty version"
+        },
+        {
+          "info": {
+            "name": "stop running process",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/stop"
+          },
+          "docs": "only supported on Netty version"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "verify",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "verify a request has been received a specific number of times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "verify a request has been received a specific number of times"
+        },
+        {
+          "info": {
+            "name": "verify a sequence of request has been received in the specific order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/verifySequence",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "verify a sequence of request has been received in the specific order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
