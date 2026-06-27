@@ -62,7 +62,7 @@ common:
     url: https://github.com/mock-server/mockserver/issues
   - type: License
     url: https://github.com/mock-server/mockserver/blob/master/LICENSE.md
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://mock-server.com/llms.txt
 maintainers:
   - FN: Kin Lane
