@@ -48,6 +48,10 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/mockserver/refs/heads/main/openapi/mockserver-openapi-original.yml
 common:
+  - type: VulnerabilityDisclosure
+    url: security/mockserver-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/mockserver-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/mockserver
   - type: Website
