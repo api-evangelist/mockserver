@@ -48,6 +48,8 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/mockserver/refs/heads/main/openapi/mockserver-openapi-original.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/mockserver-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/mockserver-vulnerability-disclosure.yml
   - type: DomainSecurity
