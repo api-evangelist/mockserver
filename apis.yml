@@ -6,7 +6,19 @@ description: >-
   fully developed, isolate the system under test for reliable testing, simulate slow or faulty endpoints, and
   record/replay requests.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/mockserver.png
 url: https://raw.githubusercontent.com/api-evangelist/mockserver/refs/heads/main/apis.yml
 access: 3rd-Party
 created: '2025-01-08'
@@ -22,31 +34,56 @@ tags:
   - REST API
   - Platform
 apis:
-  - aid: mockserver:mockserver
-    name: MockServer
-    description: >-
-      MockServer is a flexible open-source tool for mocking and proxying HTTP and HTTPS requests. It exposes a simple
-      REST control plane for creating expectations, verifying received requests, retrieving recorded traffic, and
-      managing the running mock or proxy process.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.mock-server.com/
-    baseURL: http://localhost:1080/
-    tags:
-      - Mocking
-      - Mock Server
-      - Testing
-      - Proxy
-      - HTTP
-    properties:
-      - type: Documentation
-        url: https://www.mock-server.com/
-      - type: GettingStarted
-        url: https://www.mock-server.com/mock_server/getting_started.html
-      - type: GitHubRepository
-        url: https://github.com/mock-server/mockserver
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/mockserver/refs/heads/main/openapi/mockserver-openapi-original.yml
+- aid: mockserver:mockserver-control-api
+  name: MockServer control API
+  description: Manage state or process (both MockServer & MockServer Proxy)
+  humanURL: https://www.mock-server.com/
+  baseURL: http://localhost:1080/
+  tags:
+  - control
+  properties:
+  - type: OpenAPI
+    url: openapi/mockserver-control-api-openapi.yml
+  - type: Documentation
+    url: https://www.mock-server.com/
+  - type: GettingStarted
+    url: https://www.mock-server.com/mock_server/getting_started.html
+  - type: GitHubRepository
+    url: https://github.com/mock-server/mockserver
+- aid: mockserver:mockserver-expectation-api
+  name: MockServer expectation API
+  description: >-
+    Create or update expectations - updates if the id matches an existing expectations (only supported
+    by MockServer)
+  humanURL: https://www.mock-server.com/
+  baseURL: http://localhost:1080/
+  tags:
+  - expectation
+  properties:
+  - type: OpenAPI
+    url: openapi/mockserver-expectation-api-openapi.yml
+  - type: Documentation
+    url: https://www.mock-server.com/
+  - type: GettingStarted
+    url: https://www.mock-server.com/mock_server/getting_started.html
+  - type: GitHubRepository
+    url: https://github.com/mock-server/mockserver
+- aid: mockserver:mockserver-verify-api
+  name: MockServer verify API
+  description: Verify requests (both MockServer & MockServer Proxy)
+  humanURL: https://www.mock-server.com/
+  baseURL: http://localhost:1080/
+  tags:
+  - verify
+  properties:
+  - type: OpenAPI
+    url: openapi/mockserver-verify-api-openapi.yml
+  - type: Documentation
+    url: https://www.mock-server.com/
+  - type: GettingStarted
+    url: https://www.mock-server.com/mock_server/getting_started.html
+  - type: GitHubRepository
+    url: https://github.com/mock-server/mockserver
 common:
   - type: AgenticAccess
     url: agentic-access/mockserver-agentic-access.yml
