@@ -85,6 +85,14 @@ apis:
   - type: GitHubRepository
     url: https://github.com/mock-server/mockserver
 common:
+  - type: Releases
+    url: https://github.com/mock-server/mockserver/releases
+  - type: SecurityPolicy
+    url: https://github.com/mock-server/mockserver-monorepo/blob/master/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/mock-server/mockserver-monorepo/blob/master/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/mock-server/mockserver-monorepo/blob/master/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/mockserver-agentic-access.yml
   - type: VulnerabilityDisclosure
