@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MockServer control expectation API",
+    "version": "5.15.x"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "expectation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "create expectation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/expectation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "create expectation"
+        },
+        {
+          "info": {
+            "name": "create expectations from OpenAPI or Swagger",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/openapi",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "create expectations from OpenAPI or Swagger"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

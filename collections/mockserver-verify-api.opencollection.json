@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MockServer control verify API",
+    "version": "5.15.x"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "verify",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "verify a request has been received a specific number of times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "verify a request has been received a specific number of times"
+        },
+        {
+          "info": {
+            "name": "verify a sequence of request has been received in the specific order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:1080/mockserver/verifySequence",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "verify a sequence of request has been received in the specific order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,681 @@
+{
+  "item": [
+    {
+      "id": "3218b94c-cdd6-480d-b2d4-cf33bee4151f",
+      "name": "control",
+      "description": {
+        "content": "Manage state or process (both MockServer & MockServer Proxy)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04e34063-d2fb-45f6-9f53-0bdd5ea50f34",
+          "name": "clears expectations and recorded requests that match the request matcher",
+          "request": {
+            "name": "clears expectations and recorded requests that match the request matcher",
+            "description": {},
+            "url": {
+              "path": [
+                "mockserver",
+                "clear"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "all",
+                  "description": "specifies the type of information to clear, default if not specified is \"all\", supported values are \"all\", \"log\", \"expectations\""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"secure\": \"<boolean>\",\n  \"keepAlive\": \"<boolean>\",\n  \"method\": \"<string>\",\n  \"path\": \"<string>\",\n  \"pathParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"queryStringParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"headers\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"socketAddress\": {\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"scheme\": \"<string>\"\n  },\n  \"protocol\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6306612-3130-482c-aa4a-fd815a1058aa",
+              "name": "expectations and recorded requests cleared",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "clear"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"secure\": \"<boolean>\",\n  \"keepAlive\": \"<boolean>\",\n  \"method\": \"<string>\",\n  \"path\": \"<string>\",\n  \"pathParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"queryStringParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"body\": \"string\",\n  \"headers\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"socketAddress\": {\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"scheme\": \"<string>\"\n  },\n  \"protocol\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd25d1e6-f781-4280-8ad7-5d68d3eb63fc",
+              "name": "incorrect request format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "clear"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"secure\": \"<boolean>\",\n  \"keepAlive\": \"<boolean>\",\n  \"method\": \"<string>\",\n  \"path\": \"<string>\",\n  \"pathParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"queryStringParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"body\": \"string\",\n  \"headers\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"socketAddress\": {\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"scheme\": \"<string>\"\n  },\n  \"protocol\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69d01253-762d-481b-845d-88f3579ac76d",
+          "name": "clears all expectations and recorded requests",
+          "request": {
+            "name": "clears all expectations and recorded requests",
+            "description": {},
+            "url": {
+              "path": [
+                "mockserver",
+                "reset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95c6a177-b095-4144-a577-40c836c39148",
+              "name": "expectations and recorded requests cleared",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "reset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e43bde52-b6b2-480e-a21a-c546a86af0d6",
+          "name": "retrieve recorded requests, active expectations, recorded expectations or log messages",
+          "request": {
+            "name": "retrieve recorded requests, active expectations, recorded expectations or log messages",
+            "description": {},
+            "url": {
+              "path": [
+                "mockserver",
+                "retrieve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "changes response format, default if not specified is \"json\", supported values are \"java\", \"json\", \"log_entries\""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "specifies the type of object that is retrieve, default if not specified is \"requests\", supported values are \"logs\", \"requests\", \"recorded_expectations\", \"active_expectations\""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"secure\": \"<boolean>\",\n  \"keepAlive\": \"<boolean>\",\n  \"method\": \"<string>\",\n  \"path\": \"<string>\",\n  \"pathParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"queryStringParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"body\": \"string\",\n  \"headers\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"socketAddress\": {\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"scheme\": \"<string>\"\n  },\n  \"protocol\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c42a431f-ec30-4134-a058-9019fc935fc0",
+              "name": "recorded requests or active expectations returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "retrieve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"secure\": \"<boolean>\",\n  \"keepAlive\": \"<boolean>\",\n  \"method\": \"<string>\",\n  \"path\": \"<string>\",\n  \"pathParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"queryStringParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"body\": 8312.152196253932,\n  \"headers\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"socketAddress\": {\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"scheme\": \"<string>\"\n  },\n  \"protocol\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e226bfdb-d03c-4c36-b341-4fe7c932e736",
+              "name": "incorrect request format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "retrieve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"secure\": \"<boolean>\",\n  \"keepAlive\": \"<boolean>\",\n  \"method\": \"<string>\",\n  \"path\": \"<string>\",\n  \"pathParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"queryStringParameters\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"body\": 8312.152196253932,\n  \"headers\": [\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"cookies\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"socketAddress\": {\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"scheme\": \"<string>\"\n  },\n  \"protocol\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "adf965cc-86c2-4ab4-ae79-f7c0bc087b37",
+          "name": "return listening ports",
+          "request": {
+            "name": "return listening ports",
+            "description": {},
+            "url": {
+              "path": [
+                "mockserver",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "499c56b1-b27b-442a-9e53-f9ada5a42f50",
+              "name": "MockServer is running and listening on the listed ports",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ports\": [\n    4903.380909209014,\n    3932.3740740568014\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3f1991e-79bb-4903-8959-1a7e6ba37d15",
+          "name": "bind additional listening ports",
+          "request": {
+            "name": "bind additional listening ports",
+            "description": {
+              "content": "only supported on Netty version",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mockserver",
+                "bind"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ports\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0172cc62-54c1-4417-a838-a6567e0e1df2",
+              "name": "listening on additional requested ports, note: the response ony contains ports added for the request, to list all ports use /status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "bind"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ports\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ports\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5c1ea7a-d6c9-47e4-989c-046e3a6df7a5",
+              "name": "incorrect request format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "bind"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ports\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39ed2aa6-190b-492d-b5d3-56940b871d35",
+              "name": "unable to bind to ports (i.e. already bound or JVM process doesn't have permission)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "bind"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ports\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "faff656d-57ad-448a-8a78-ba980086b4b6",
+          "name": "stop running process",
+          "request": {
+            "name": "stop running process",
+            "description": {
+              "content": "only supported on Netty version",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mockserver",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5bc4fb34-eaaf-4c56-9741-a84e0e3e6d53",
+              "name": "MockServer process is stopping",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mockserver",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:1080/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bc5a9a74-9e16-4525-9a74-2c4380fcdfcb",
+    "name": "MockServer control API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MockServer enables easy mocking of any system you integrate with via HTTP or HTTPS with clients written in Java, JavaScript and Ruby and a simple REST API (as shown below).\n\nMockServer Proxy is a proxy that introspects all proxied traffic including encrypted SSL traffic and supports Port Forwarding, Web Proxying (i.e. HTTP proxy), HTTPS Tunneling Proxying (using HTTP CONNECT) and SOCKS Proxying (i.e. dynamic port forwarding).\n\nBoth MockServer and the MockServer Proxy record all received requests so that it is possible to verify exactly what requests have been sent by the system under test.",
+      "type": "text/plain"
+    }
+  }
+}
