@@ -35,7 +35,7 @@ url: https://raw.githubusercontent.com/api-evangelist/mockserver/refs/heads/main
 access: 3rd-Party
 created: '2025-01-08'
 modified: '2026-05-19'
-position: Consumer
+position: Consuming
 specificationVersion: '0.23'
 tags:
   - Mocking
