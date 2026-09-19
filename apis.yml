@@ -39,6 +39,14 @@ position: Consuming
 specificationVersion: '0.23'
 tags:
   - Mocking
+  - Mock Servers
+  - Testing
+  - Service Virtualization
+  - HTTP
+  - REST API
+  - Platform
+tags_raw:
+  - Mocking
   - Mock Server
   - Testing
   - Service Virtualization
