@@ -1,14 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: MockServer control verify API
+  title: MockServer Verify API
   version: 5.15.x
-  description: 'MockServer enables easy mocking of any system you integrate with via HTTP or HTTPS with clients written in Java, JavaScript and Ruby and a simple REST API (as shown below).
-
-
-    MockServer Proxy is a proxy that introspects all proxied traffic including encrypted SSL traffic and supports Port Forwarding, Web Proxying (i.e. HTTP proxy), HTTPS Tunneling Proxying (using HTTP CONNECT) and SOCKS Proxying (i.e. dynamic port forwarding).
-
-
-    Both MockServer and the MockServer Proxy record all received requests so that it is possible to verify exactly what requests have been sent by the system under test.'
+  description: MockServer enables easy mocking of any system you integrate with via HTTP or HTTPS with clients written in Java, JavaScript and Ruby and a simple REST API (as shown below).
   license:
     url: https://github.com/mock-server/mockserver/blob/master/LICENSE.md
     name: Apache 2.0
@@ -16,13 +10,13 @@ servers:
 - url: http://localhost:1080/
 - url: https://localhost:1080/
 tags:
-- name: verify
+- name: Verify
   description: Verify requests (both MockServer & MockServer Proxy)
 paths:
   /mockserver/verify:
     put:
       tags:
-      - verify
+      - Verify
       summary: verify a request has been received a specific number of times
       responses:
         '202':
@@ -43,10 +37,12 @@ paths:
               $ref: '#/components/schemas/Verification'
         description: request matcher and the number of times to match
         required: true
+      operationId: putMockserverVerify
+      x-operation-id-source: derived
   /mockserver/verifySequence:
     put:
       tags:
-      - verify
+      - Verify
       summary: verify a sequence of request has been received in the specific order
       responses:
         '202':
@@ -67,26 +63,10 @@ paths:
               $ref: '#/components/schemas/VerificationSequence'
         description: the sequence of requests matchers
         required: true
+      operationId: putMockserverVerifySequence
+      x-operation-id-source: derived
 components:
   schemas:
-    OpenAPIDefinition:
-      description: open api or swagger request matcher
-      type: object
-      additionalProperties: false
-      properties:
-        specUrlOrPayload:
-          type: string
-        operationId:
-          type: string
-    ExpectationId:
-      description: pointer to existing expectation
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      required:
-      - id
     SocketAddress:
       description: remote address to send request to, only used for request overrides
       type: object
@@ -100,159 +80,15 @@ components:
           enum:
           - HTTP
           - HTTPS
-    KeyToMultiValue:
-      oneOf:
-      - type: array
-        additionalProperties: false
-        items:
-          type: object
-          additionalProperties: false
-          properties:
-            name:
-              type: string
-            values:
-              type: array
-              additionalProperties: false
-              items:
-                type: string
-      - type: object
-        additionalProperties: true
-        properties:
-          keyMatchStyle:
-            type: string
-            enum:
-            - MATCHING_KEY
-            - SUB_SET
-            default: SUB_SET
-    KeyToValue:
-      oneOf:
-      - type: array
-        additionalProperties: false
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-            value:
-              type: string
-      - type: object
-        additionalProperties: true
-    StringOrJsonSchema:
-      description: string value that can be support nottable, optional or a json schema
-      oneOf:
-      - type: string
-      - type: object
-        additionalProperties: false
-        properties:
-          not:
-            type: boolean
-          optional:
-            type: boolean
-          value:
-            type: string
-          schema:
-            $ref: http://json-schema.org/draft-04/schema
-          parameterStyle:
-            type: string
-            enum:
-            - SIMPLE
-            - SIMPLE_EXPLODED
-            - LABEL
-            - LABEL_EXPLODED
-            - MATRIX
-            - MATRIX_EXPLODED
-            - FORM_EXPLODED
-            - FORM
-            - SPACE_DELIMITED_EXPLODED
-            - SPACE_DELIMITED
-            - PIPE_DELIMITED_EXPLODED
-            - PIPE_DELIMITED
-            - DEEP_OBJECT
-    VerificationTimes:
-      description: number of request to verify
+    ExpectationId:
+      description: pointer to existing expectation
       type: object
       additionalProperties: false
       properties:
-        atLeast:
-          type: integer
-        atMost:
-          type: integer
-    VerificationSequence:
-      description: verification sequence
-      type: object
-      additionalProperties: false
-      properties:
-        expectationIds:
-          type: array
-          additionalProperties: false
-          items:
-            $ref: '#/components/schemas/ExpectationId'
-        httpRequests:
-          type: array
-          items:
-            $ref: '#/components/schemas/RequestDefinition'
-        maximumNumberOfRequestToReturnInVerificationFailure:
-          type: integer
-      oneOf:
-      - required:
-        - expectationIds
-      - required:
-        - httpRequests
-    RequestDefinition:
-      description: request definition
-      oneOf:
-      - $ref: '#/components/schemas/HttpRequest'
-      - $ref: '#/components/schemas/OpenAPIDefinition'
-    Verification:
-      description: verification
-      type: object
-      additionalProperties: false
-      properties:
-        expectationId:
-          $ref: '#/components/schemas/ExpectationId'
-        httpRequest:
-          $ref: '#/components/schemas/RequestDefinition'
-        times:
-          $ref: '#/components/schemas/VerificationTimes'
-        maximumNumberOfRequestToReturnInVerificationFailure:
-          type: integer
-      oneOf:
-      - required:
-        - expectationId
-      - required:
-        - httpRequest
-    HttpRequest:
-      description: request properties matcher
-      type: object
-      additionalProperties: false
-      properties:
-        secure:
-          type: boolean
-        keepAlive:
-          type: boolean
-        method:
-          $ref: '#/components/schemas/StringOrJsonSchema'
-        path:
-          $ref: '#/components/schemas/StringOrJsonSchema'
-        pathParameters:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        queryStringParameters:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        body:
-          $ref: '#/components/schemas/Body'
-        headers:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        cookies:
-          $ref: '#/components/schemas/KeyToValue'
-        socketAddress:
-          $ref: '#/components/schemas/SocketAddress'
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-    Protocol:
-      description: protocol matcher
-      enum:
-      - HTTP_1_1
-      - HTTP_2
+        id:
+          type: string
+      required:
+      - id
     Body:
       description: request body matcher
       anyOf:
@@ -385,3 +221,165 @@ components:
             - XPATH
           xpath:
             type: string
+    KeyToMultiValue:
+      oneOf:
+      - type: array
+        additionalProperties: false
+        items:
+          type: object
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+            values:
+              type: array
+              additionalProperties: false
+              items:
+                type: string
+      - type: object
+        additionalProperties: true
+        properties:
+          keyMatchStyle:
+            type: string
+            enum:
+            - MATCHING_KEY
+            - SUB_SET
+            default: SUB_SET
+    VerificationTimes:
+      description: number of request to verify
+      type: object
+      additionalProperties: false
+      properties:
+        atLeast:
+          type: integer
+        atMost:
+          type: integer
+    Verification:
+      description: verification
+      type: object
+      additionalProperties: false
+      properties:
+        expectationId:
+          $ref: '#/components/schemas/ExpectationId'
+        httpRequest:
+          $ref: '#/components/schemas/RequestDefinition'
+        times:
+          $ref: '#/components/schemas/VerificationTimes'
+        maximumNumberOfRequestToReturnInVerificationFailure:
+          type: integer
+      oneOf:
+      - required:
+        - expectationId
+      - required:
+        - httpRequest
+    Protocol:
+      description: protocol matcher
+      enum:
+      - HTTP_1_1
+      - HTTP_2
+    StringOrJsonSchema:
+      description: string value that can be support nottable, optional or a json schema
+      oneOf:
+      - type: string
+      - type: object
+        additionalProperties: false
+        properties:
+          not:
+            type: boolean
+          optional:
+            type: boolean
+          value:
+            type: string
+          schema:
+            $ref: http://json-schema.org/draft-04/schema
+          parameterStyle:
+            type: string
+            enum:
+            - SIMPLE
+            - SIMPLE_EXPLODED
+            - LABEL
+            - LABEL_EXPLODED
+            - MATRIX
+            - MATRIX_EXPLODED
+            - FORM_EXPLODED
+            - FORM
+            - SPACE_DELIMITED_EXPLODED
+            - SPACE_DELIMITED
+            - PIPE_DELIMITED_EXPLODED
+            - PIPE_DELIMITED
+            - DEEP_OBJECT
+    RequestDefinition:
+      description: request definition
+      oneOf:
+      - $ref: '#/components/schemas/HttpRequest'
+      - $ref: '#/components/schemas/OpenAPIDefinition'
+    OpenAPIDefinition:
+      description: open api or swagger request matcher
+      type: object
+      additionalProperties: false
+      properties:
+        specUrlOrPayload:
+          type: string
+        operationId:
+          type: string
+    KeyToValue:
+      oneOf:
+      - type: array
+        additionalProperties: false
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: string
+      - type: object
+        additionalProperties: true
+    HttpRequest:
+      description: request properties matcher
+      type: object
+      additionalProperties: false
+      properties:
+        secure:
+          type: boolean
+        keepAlive:
+          type: boolean
+        method:
+          $ref: '#/components/schemas/StringOrJsonSchema'
+        path:
+          $ref: '#/components/schemas/StringOrJsonSchema'
+        pathParameters:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        queryStringParameters:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        body:
+          $ref: '#/components/schemas/Body'
+        headers:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        cookies:
+          $ref: '#/components/schemas/KeyToValue'
+        socketAddress:
+          $ref: '#/components/schemas/SocketAddress'
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+    VerificationSequence:
+      description: verification sequence
+      type: object
+      additionalProperties: false
+      properties:
+        expectationIds:
+          type: array
+          additionalProperties: false
+          items:
+            $ref: '#/components/schemas/ExpectationId'
+        httpRequests:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequestDefinition'
+        maximumNumberOfRequestToReturnInVerificationFailure:
+          type: integer
+      oneOf:
+      - required:
+        - expectationIds
+      - required:
+        - httpRequests
