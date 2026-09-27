@@ -7,16 +7,21 @@ description: >-
   record/replay requests.
 type: Index
 deliveryModel:
-  model: unknown
-  open_source: unknown
+  model: self-hosted
+  license: Apache-2.0
+  license_evidence:
+    repo: mock-server/mockserver
+    spdx: Apache-2.0
+    stars: 4976
+  open_source: true
   commercial: false
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Self-hosted open source · you run it yourself
+  confidence: medium
   source:
   - openapi
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -55,7 +60,7 @@ tags_raw:
   - Platform
 apis:
 - aid: mockserver:mockserver-control-api
-  name: MockServer control API
+  name: MockServer Control API
   description: Manage state or process (both MockServer & MockServer Proxy)
   humanURL: https://www.mock-server.com/
   baseURL: http://localhost:1080/
@@ -73,7 +78,7 @@ apis:
   - type: GitHubRepository
     url: https://github.com/mock-server/mockserver
 - aid: mockserver:mockserver-expectation-api
-  name: MockServer expectation API
+  name: MockServer Expectation API
   description: >-
     Create or update expectations - updates if the id matches an existing expectations (only supported
     by MockServer)
@@ -91,7 +96,7 @@ apis:
   - type: GitHubRepository
     url: https://github.com/mock-server/mockserver
 - aid: mockserver:mockserver-verify-api
-  name: MockServer verify API
+  name: MockServer Verify API
   description: Verify requests (both MockServer & MockServer Proxy)
   humanURL: https://www.mock-server.com/
   baseURL: http://localhost:1080/

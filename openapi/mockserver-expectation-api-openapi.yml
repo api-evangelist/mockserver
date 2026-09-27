@@ -73,67 +73,153 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SocketAddress:
-      description: remote address to send request to, only used for request overrides
+    Expectation:
+      description: expectation
       type: object
       additionalProperties: false
       properties:
-        host:
+        id:
           type: string
-        port:
+        priority:
           type: integer
-        scheme:
-          enum:
-          - HTTP
-          - HTTPS
-    StringOrJsonSchema:
-      description: string value that can be support nottable, optional or a json schema
+        httpRequest:
+          $ref: '#/components/schemas/RequestDefinition'
+        httpResponse:
+          $ref: '#/components/schemas/HttpResponse'
+        httpResponseTemplate:
+          $ref: '#/components/schemas/HttpTemplate'
+        httpResponseClassCallback:
+          $ref: '#/components/schemas/HttpClassCallback'
+        httpResponseObjectCallback:
+          $ref: '#/components/schemas/HttpObjectCallback'
+        httpForward:
+          $ref: '#/components/schemas/HttpForward'
+        httpForwardTemplate:
+          $ref: '#/components/schemas/HttpTemplate'
+        httpForwardClassCallback:
+          $ref: '#/components/schemas/HttpClassCallback'
+        httpForwardObjectCallback:
+          $ref: '#/components/schemas/HttpObjectCallback'
+        httpOverrideForwardedRequest:
+          $ref: '#/components/schemas/HttpOverrideForwardedRequest'
+        httpError:
+          $ref: '#/components/schemas/HttpError'
+        times:
+          $ref: '#/components/schemas/Times'
+        timeToLive:
+          $ref: '#/components/schemas/TimeToLive'
       oneOf:
-      - type: string
+      - required:
+        - httpResponse
+      - required:
+        - httpResponseTemplate
+      - required:
+        - httpResponseClassCallback
+      - required:
+        - httpResponseObjectCallback
+      - required:
+        - httpForward
+      - required:
+        - httpForwardTemplate
+      - required:
+        - httpForwardClassCallback
+      - required:
+        - httpForwardObjectCallback
+      - required:
+        - httpOverrideForwardedRequest
+      - required:
+        - httpError
+    Times:
+      description: number of responses
+      type: object
+      additionalProperties: false
+      properties:
+        remainingTimes:
+          type: integer
+        unlimited:
+          type: boolean
+    Delay:
+      description: response delay
+      type: object
+      additionalProperties: false
+      properties:
+        timeUnit:
+          type: string
+        value:
+          type: integer
+    KeyToValue:
+      oneOf:
+      - type: array
+        additionalProperties: false
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: string
       - type: object
+        additionalProperties: true
+    BodyWithContentType:
+      description: response body
+      anyOf:
+      - type: object
+        description: binary response body
         additionalProperties: false
         properties:
           not:
             type: boolean
-          optional:
-            type: boolean
-          value:
-            type: string
-          schema:
-            $ref: http://json-schema.org/draft-04/schema
-          parameterStyle:
-            type: string
+          type:
             enum:
-            - SIMPLE
-            - SIMPLE_EXPLODED
-            - LABEL
-            - LABEL_EXPLODED
-            - MATRIX
-            - MATRIX_EXPLODED
-            - FORM_EXPLODED
-            - FORM
-            - SPACE_DELIMITED_EXPLODED
-            - SPACE_DELIMITED
-            - PIPE_DELIMITED_EXPLODED
-            - PIPE_DELIMITED
-            - DEEP_OBJECT
-    OpenAPIDefinition:
-      description: open api or swagger request matcher
-      type: object
-      additionalProperties: false
-      properties:
-        specUrlOrPayload:
-          type: string
-        operationId:
-          type: string
-    OpenAPIExpectations:
-      description: list of open api expectations
-      oneOf:
-      - $ref: '#/components/schemas/OpenAPIExpectation'
-      - type: array
+            - BINARY
+          base64Bytes:
+            type: string
+          contentType:
+            type: string
+      - type: object
+        description: json response body
         additionalProperties: false
-        items:
-          $ref: '#/components/schemas/OpenAPIExpectation'
+        properties:
+          not:
+            type: boolean
+          type:
+            enum:
+            - JSON
+          json:
+            type: string
+          contentType:
+            type: string
+      - type: object
+        description: json response body
+        additionalProperties: true
+      - type: object
+        description: string response body
+        additionalProperties: false
+        properties:
+          not:
+            type: boolean
+          type:
+            enum:
+            - STRING
+          string:
+            type: string
+          contentType:
+            type: string
+      - type: string
+        description: string response body
+      - type: object
+        description: xml response body
+        additionalProperties: false
+        properties:
+          not:
+            type: boolean
+          type:
+            enum:
+            - XML
+          xml:
+            type: string
+          contentType:
+            type: string
     Body:
       description: request body matcher
       anyOf:
@@ -266,6 +352,113 @@ components:
             - XPATH
           xpath:
             type: string
+    Expectations:
+      description: list of expectations
+      oneOf:
+      - $ref: '#/components/schemas/Expectation'
+      - type: array
+        additionalProperties: false
+        items:
+          $ref: '#/components/schemas/Expectation'
+    OpenAPIExpectations:
+      description: list of open api expectations
+      oneOf:
+      - $ref: '#/components/schemas/OpenAPIExpectation'
+      - type: array
+        additionalProperties: false
+        items:
+          $ref: '#/components/schemas/OpenAPIExpectation'
+    HttpClassCallback:
+      description: class callback
+      type: object
+      additionalProperties: false
+      properties:
+        delay:
+          $ref: '#/components/schemas/Delay'
+        callbackClass:
+          type: string
+    HttpRequest:
+      description: request properties matcher
+      type: object
+      additionalProperties: false
+      properties:
+        secure:
+          type: boolean
+        keepAlive:
+          type: boolean
+        method:
+          $ref: '#/components/schemas/StringOrJsonSchema'
+        path:
+          $ref: '#/components/schemas/StringOrJsonSchema'
+        pathParameters:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        queryStringParameters:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        body:
+          $ref: '#/components/schemas/Body'
+        headers:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        cookies:
+          $ref: '#/components/schemas/KeyToValue'
+        socketAddress:
+          $ref: '#/components/schemas/SocketAddress'
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+    HttpError:
+      description: error behaviour
+      type: object
+      additionalProperties: false
+      properties:
+        delay:
+          $ref: '#/components/schemas/Delay'
+        dropConnection:
+          type: boolean
+        responseBytes:
+          type: string
+    StringOrJsonSchema:
+      description: string value that can be support nottable, optional or a json schema
+      oneOf:
+      - type: string
+      - type: object
+        additionalProperties: false
+        properties:
+          not:
+            type: boolean
+          optional:
+            type: boolean
+          value:
+            type: string
+          schema:
+            $ref: http://json-schema.org/draft-04/schema
+          parameterStyle:
+            type: string
+            enum:
+            - SIMPLE
+            - SIMPLE_EXPLODED
+            - LABEL
+            - LABEL_EXPLODED
+            - MATRIX
+            - MATRIX_EXPLODED
+            - FORM_EXPLODED
+            - FORM
+            - SPACE_DELIMITED_EXPLODED
+            - SPACE_DELIMITED
+            - PIPE_DELIMITED_EXPLODED
+            - PIPE_DELIMITED
+            - DEEP_OBJECT
+    SocketAddress:
+      description: remote address to send request to, only used for request overrides
+      type: object
+      additionalProperties: false
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+        scheme:
+          enum:
+          - HTTP
+          - HTTPS
     HttpResponse:
       description: response to return
       type: object
@@ -285,40 +478,21 @@ components:
           type: integer
         reasonPhrase:
           type: string
-    HttpClassCallback:
-      description: class callback
+    OpenAPIExpectation:
+      description: open api or swagger expectation
       type: object
       additionalProperties: false
       properties:
-        delay:
-          $ref: '#/components/schemas/Delay'
-        callbackClass:
-          type: string
-    Protocol:
-      description: protocol matcher
-      enum:
-      - HTTP_1_1
-      - HTTP_2
-    HttpError:
-      description: error behaviour
-      type: object
-      additionalProperties: false
-      properties:
-        delay:
-          $ref: '#/components/schemas/Delay'
-        dropConnection:
-          type: boolean
-        responseBytes:
-          type: string
-    Delay:
-      description: response delay
-      type: object
-      additionalProperties: false
-      properties:
-        timeUnit:
-          type: string
-        value:
-          type: integer
+        specUrlOrPayload:
+          anyOf:
+          - type: string
+          - type: object
+        operationsAndResponses:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - specUrlOrPayload
     KeyToMultiValue:
       oneOf:
       - type: array
@@ -343,89 +517,17 @@ components:
             - MATCHING_KEY
             - SUB_SET
             default: SUB_SET
-    BodyWithContentType:
-      description: response body
-      anyOf:
-      - type: object
-        description: binary response body
-        additionalProperties: false
-        properties:
-          not:
-            type: boolean
-          type:
-            enum:
-            - BINARY
-          base64Bytes:
-            type: string
-          contentType:
-            type: string
-      - type: object
-        description: json response body
-        additionalProperties: false
-        properties:
-          not:
-            type: boolean
-          type:
-            enum:
-            - JSON
-          json:
-            type: string
-          contentType:
-            type: string
-      - type: object
-        description: json response body
-        additionalProperties: true
-      - type: object
-        description: string response body
-        additionalProperties: false
-        properties:
-          not:
-            type: boolean
-          type:
-            enum:
-            - STRING
-          string:
-            type: string
-          contentType:
-            type: string
-      - type: string
-        description: string response body
-      - type: object
-        description: xml response body
-        additionalProperties: false
-        properties:
-          not:
-            type: boolean
-          type:
-            enum:
-            - XML
-          xml:
-            type: string
-          contentType:
-            type: string
-    OpenAPIExpectation:
-      description: open api or swagger expectation
+    HttpObjectCallback:
+      description: object / method callback
       type: object
       additionalProperties: false
       properties:
-        specUrlOrPayload:
-          anyOf:
-          - type: string
-          - type: object
-        operationsAndResponses:
-          type: object
-          additionalProperties:
-            type: string
-      required:
-      - specUrlOrPayload
-    Expectations:
-      description: list of expectations
-      oneOf:
-      - $ref: '#/components/schemas/Expectation'
-      - type: array
-        additionalProperties: false
-        items:
-          $ref: '#/components/schemas/Expectation'
+        delay:
+          $ref: '#/components/schemas/Delay'
+        clientId:
+          type: string
+        responseCallback:
+          type: boolean
     HttpOverrideForwardedRequest:
       description: override forwarded request
       oneOf:
@@ -528,78 +630,31 @@ components:
             $ref: '#/components/schemas/HttpRequest'
           httpResponse:
             $ref: '#/components/schemas/HttpResponse'
-    KeyToValue:
-      oneOf:
-      - type: array
-        additionalProperties: false
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-            value:
-              type: string
-      - type: object
-        additionalProperties: true
-    HttpTemplate:
-      description: template to generate response / request
+    HttpForward:
+      description: host and port to forward to
       type: object
       additionalProperties: false
       properties:
         delay:
           $ref: '#/components/schemas/Delay'
-        templateType:
-          enum:
-          - VELOCITY
-          - JAVASCRIPT
-          - MUSTACHE
-        template:
+        host:
           type: string
-    HttpRequest:
-      description: request properties matcher
-      type: object
-      additionalProperties: false
-      properties:
-        secure:
-          type: boolean
-        keepAlive:
-          type: boolean
-        method:
-          $ref: '#/components/schemas/StringOrJsonSchema'
-        path:
-          $ref: '#/components/schemas/StringOrJsonSchema'
-        pathParameters:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        queryStringParameters:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        body:
-          $ref: '#/components/schemas/Body'
-        headers:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        cookies:
-          $ref: '#/components/schemas/KeyToValue'
-        socketAddress:
-          $ref: '#/components/schemas/SocketAddress'
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-    TimeToLive:
-      description: time expectation is valid for
-      type: object
-      additionalProperties: false
-      properties:
-        timeUnit:
-          enum:
-          - DAYS
-          - HOURS
-          - MINUTES
-          - SECONDS
-          - MILLISECONDS
-          - MICROSECONDS
-          - NANOSECONDS
-        timeToLive:
+        port:
           type: integer
-        unlimited:
-          type: boolean
+        scheme:
+          enum:
+          - HTTP
+          - HTTPS
+    RequestDefinition:
+      description: request definition
+      oneOf:
+      - $ref: '#/components/schemas/HttpRequest'
+      - $ref: '#/components/schemas/OpenAPIDefinition'
+    Protocol:
+      description: protocol matcher
+      enum:
+      - HTTP_1_1
+      - HTTP_2
     ConnectionOptions:
       description: connection options
       type: object
@@ -619,99 +674,44 @@ components:
           type: boolean
         closeSocketDelay:
           $ref: '#/components/schemas/Delay'
-    Expectation:
-      description: expectation
+    HttpTemplate:
+      description: template to generate response / request
       type: object
       additionalProperties: false
       properties:
-        id:
+        delay:
+          $ref: '#/components/schemas/Delay'
+        templateType:
+          enum:
+          - VELOCITY
+          - JAVASCRIPT
+          - MUSTACHE
+        template:
           type: string
-        priority:
-          type: integer
-        httpRequest:
-          $ref: '#/components/schemas/RequestDefinition'
-        httpResponse:
-          $ref: '#/components/schemas/HttpResponse'
-        httpResponseTemplate:
-          $ref: '#/components/schemas/HttpTemplate'
-        httpResponseClassCallback:
-          $ref: '#/components/schemas/HttpClassCallback'
-        httpResponseObjectCallback:
-          $ref: '#/components/schemas/HttpObjectCallback'
-        httpForward:
-          $ref: '#/components/schemas/HttpForward'
-        httpForwardTemplate:
-          $ref: '#/components/schemas/HttpTemplate'
-        httpForwardClassCallback:
-          $ref: '#/components/schemas/HttpClassCallback'
-        httpForwardObjectCallback:
-          $ref: '#/components/schemas/HttpObjectCallback'
-        httpOverrideForwardedRequest:
-          $ref: '#/components/schemas/HttpOverrideForwardedRequest'
-        httpError:
-          $ref: '#/components/schemas/HttpError'
-        times:
-          $ref: '#/components/schemas/Times'
-        timeToLive:
-          $ref: '#/components/schemas/TimeToLive'
-      oneOf:
-      - required:
-        - httpResponse
-      - required:
-        - httpResponseTemplate
-      - required:
-        - httpResponseClassCallback
-      - required:
-        - httpResponseObjectCallback
-      - required:
-        - httpForward
-      - required:
-        - httpForwardTemplate
-      - required:
-        - httpForwardClassCallback
-      - required:
-        - httpForwardObjectCallback
-      - required:
-        - httpOverrideForwardedRequest
-      - required:
-        - httpError
-    RequestDefinition:
-      description: request definition
-      oneOf:
-      - $ref: '#/components/schemas/HttpRequest'
-      - $ref: '#/components/schemas/OpenAPIDefinition'
-    Times:
-      description: number of responses
+    OpenAPIDefinition:
+      description: open api or swagger request matcher
       type: object
       additionalProperties: false
       properties:
-        remainingTimes:
+        specUrlOrPayload:
+          type: string
+        operationId:
+          type: string
+    TimeToLive:
+      description: time expectation is valid for
+      type: object
+      additionalProperties: false
+      properties:
+        timeUnit:
+          enum:
+          - DAYS
+          - HOURS
+          - MINUTES
+          - SECONDS
+          - MILLISECONDS
+          - MICROSECONDS
+          - NANOSECONDS
+        timeToLive:
           type: integer
         unlimited:
           type: boolean
-    HttpObjectCallback:
-      description: object / method callback
-      type: object
-      additionalProperties: false
-      properties:
-        delay:
-          $ref: '#/components/schemas/Delay'
-        clientId:
-          type: string
-        responseCallback:
-          type: boolean
-    HttpForward:
-      description: host and port to forward to
-      type: object
-      additionalProperties: false
-      properties:
-        delay:
-          $ref: '#/components/schemas/Delay'
-        host:
-          type: string
-        port:
-          type: integer
-        scheme:
-          enum:
-          - HTTP
-          - HTTPS
