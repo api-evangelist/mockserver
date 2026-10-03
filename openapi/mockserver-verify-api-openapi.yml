@@ -67,15 +67,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    VerificationTimes:
-      description: number of request to verify
+    OpenAPIDefinition:
+      description: open api or swagger request matcher
       type: object
       additionalProperties: false
       properties:
-        atLeast:
-          type: integer
-        atMost:
-          type: integer
+        specUrlOrPayload:
+          type: string
+        operationId:
+          type: string
     VerificationSequence:
       description: verification sequence
       type: object
@@ -97,16 +97,160 @@ components:
         - expectationIds
       - required:
         - httpRequests
-    RequestDefinition:
-      description: request definition
+    KeyToMultiValue:
       oneOf:
-      - $ref: '#/components/schemas/HttpRequest'
-      - $ref: '#/components/schemas/OpenAPIDefinition'
+      - type: array
+        additionalProperties: false
+        items:
+          type: object
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+            values:
+              type: array
+              additionalProperties: false
+              items:
+                type: string
+      - type: object
+        additionalProperties: true
+        properties:
+          keyMatchStyle:
+            type: string
+            enum:
+            - MATCHING_KEY
+            - SUB_SET
+            default: SUB_SET
+    ExpectationId:
+      description: pointer to existing expectation
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    Verification:
+      description: verification
+      type: object
+      additionalProperties: false
+      properties:
+        expectationId:
+          $ref: '#/components/schemas/ExpectationId'
+        httpRequest:
+          $ref: '#/components/schemas/RequestDefinition'
+        times:
+          $ref: '#/components/schemas/VerificationTimes'
+        maximumNumberOfRequestToReturnInVerificationFailure:
+          type: integer
+      oneOf:
+      - required:
+        - expectationId
+      - required:
+        - httpRequest
+    StringOrJsonSchema:
+      description: string value that can be support nottable, optional or a json schema
+      oneOf:
+      - type: string
+      - type: object
+        additionalProperties: false
+        properties:
+          not:
+            type: boolean
+          optional:
+            type: boolean
+          value:
+            type: string
+          schema:
+            $ref: http://json-schema.org/draft-04/schema
+          parameterStyle:
+            type: string
+            enum:
+            - SIMPLE
+            - SIMPLE_EXPLODED
+            - LABEL
+            - LABEL_EXPLODED
+            - MATRIX
+            - MATRIX_EXPLODED
+            - FORM_EXPLODED
+            - FORM
+            - SPACE_DELIMITED_EXPLODED
+            - SPACE_DELIMITED
+            - PIPE_DELIMITED_EXPLODED
+            - PIPE_DELIMITED
+            - DEEP_OBJECT
+    HttpRequest:
+      description: request properties matcher
+      type: object
+      additionalProperties: false
+      properties:
+        secure:
+          type: boolean
+        keepAlive:
+          type: boolean
+        method:
+          $ref: '#/components/schemas/StringOrJsonSchema'
+        path:
+          $ref: '#/components/schemas/StringOrJsonSchema'
+        pathParameters:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        queryStringParameters:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        body:
+          $ref: '#/components/schemas/Body'
+        headers:
+          $ref: '#/components/schemas/KeyToMultiValue'
+        cookies:
+          $ref: '#/components/schemas/KeyToValue'
+        socketAddress:
+          $ref: '#/components/schemas/SocketAddress'
+        protocol:
+          $ref: '#/components/schemas/Protocol'
     Protocol:
       description: protocol matcher
       enum:
       - HTTP_1_1
       - HTTP_2
+    SocketAddress:
+      description: remote address to send request to, only used for request overrides
+      type: object
+      additionalProperties: false
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+        scheme:
+          enum:
+          - HTTP
+          - HTTPS
+    RequestDefinition:
+      description: request definition
+      oneOf:
+      - $ref: '#/components/schemas/HttpRequest'
+      - $ref: '#/components/schemas/OpenAPIDefinition'
+    VerificationTimes:
+      description: number of request to verify
+      type: object
+      additionalProperties: false
+      properties:
+        atLeast:
+          type: integer
+        atMost:
+          type: integer
+    KeyToValue:
+      oneOf:
+      - type: array
+        additionalProperties: false
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            value:
+              type: string
+      - type: object
+        additionalProperties: true
     Body:
       description: request body matcher
       anyOf:
@@ -239,147 +383,3 @@ components:
             - XPATH
           xpath:
             type: string
-    ExpectationId:
-      description: pointer to existing expectation
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    HttpRequest:
-      description: request properties matcher
-      type: object
-      additionalProperties: false
-      properties:
-        secure:
-          type: boolean
-        keepAlive:
-          type: boolean
-        method:
-          $ref: '#/components/schemas/StringOrJsonSchema'
-        path:
-          $ref: '#/components/schemas/StringOrJsonSchema'
-        pathParameters:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        queryStringParameters:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        body:
-          $ref: '#/components/schemas/Body'
-        headers:
-          $ref: '#/components/schemas/KeyToMultiValue'
-        cookies:
-          $ref: '#/components/schemas/KeyToValue'
-        socketAddress:
-          $ref: '#/components/schemas/SocketAddress'
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-    KeyToValue:
-      oneOf:
-      - type: array
-        additionalProperties: false
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-            value:
-              type: string
-      - type: object
-        additionalProperties: true
-    OpenAPIDefinition:
-      description: open api or swagger request matcher
-      type: object
-      additionalProperties: false
-      properties:
-        specUrlOrPayload:
-          type: string
-        operationId:
-          type: string
-    KeyToMultiValue:
-      oneOf:
-      - type: array
-        additionalProperties: false
-        items:
-          type: object
-          additionalProperties: false
-          properties:
-            name:
-              type: string
-            values:
-              type: array
-              additionalProperties: false
-              items:
-                type: string
-      - type: object
-        additionalProperties: true
-        properties:
-          keyMatchStyle:
-            type: string
-            enum:
-            - MATCHING_KEY
-            - SUB_SET
-            default: SUB_SET
-    Verification:
-      description: verification
-      type: object
-      additionalProperties: false
-      properties:
-        expectationId:
-          $ref: '#/components/schemas/ExpectationId'
-        httpRequest:
-          $ref: '#/components/schemas/RequestDefinition'
-        times:
-          $ref: '#/components/schemas/VerificationTimes'
-        maximumNumberOfRequestToReturnInVerificationFailure:
-          type: integer
-      oneOf:
-      - required:
-        - expectationId
-      - required:
-        - httpRequest
-    StringOrJsonSchema:
-      description: string value that can be support nottable, optional or a json schema
-      oneOf:
-      - type: string
-      - type: object
-        additionalProperties: false
-        properties:
-          not:
-            type: boolean
-          optional:
-            type: boolean
-          value:
-            type: string
-          schema:
-            $ref: http://json-schema.org/draft-04/schema
-          parameterStyle:
-            type: string
-            enum:
-            - SIMPLE
-            - SIMPLE_EXPLODED
-            - LABEL
-            - LABEL_EXPLODED
-            - MATRIX
-            - MATRIX_EXPLODED
-            - FORM_EXPLODED
-            - FORM
-            - SPACE_DELIMITED_EXPLODED
-            - SPACE_DELIMITED
-            - PIPE_DELIMITED_EXPLODED
-            - PIPE_DELIMITED
-            - DEEP_OBJECT
-    SocketAddress:
-      description: remote address to send request to, only used for request overrides
-      type: object
-      additionalProperties: false
-      properties:
-        host:
-          type: string
-        port:
-          type: integer
-        scheme:
-          enum:
-          - HTTP
-          - HTTPS
