@@ -114,6 +114,12 @@ apis:
   - type: GitHubRepository
     url: https://github.com/mock-server/mockserver
 common:
+  - type: Plans
+    url: plans/mockserver-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/mockserver-rate-limits.yml
+  - type: FinOps
+    url: finops/mockserver-finops.yml
   - type: Releases
     url: https://github.com/mock-server/mockserver/releases
   - type: SecurityPolicy
